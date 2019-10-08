@@ -9,6 +9,7 @@ import tensorflow as tf
 import time
 from fr_utils import *
 from inception_blocks_v2 import *
+import os
 
 #with CustomObjectScope({'tf': tf}):
 FR_model = load_model('nn4.small2.v1.h5')
@@ -51,19 +52,17 @@ while True:
 
 		if min_dist < threshold:
 			person_found = str(identity)
-			#cv2.putText(frame, "Face : " + identity, (x, y - 50), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 255, 0), 2)
-			
-		else:
-			cv2.putText(frame, 'No matching faces', (x, y - 20), cv2.FONT_HERSHEY_PLAIN, 1.5, (0, 0, 255), 2)
 
 	if person_found != None: 
-		frame = cv2.copyMakeBorder(frame, 0, 50, 0, 0, cv2.BORDER_CONSTANT, value= (0, 0, 0))
+		frame = cv2.copyMakeBorder(frame, 0, 30, 0, 0, cv2.BORDER_CONSTANT, value= (0, 0, 0))
 		cv2.putText(frame, "Hello " + str(identity) + "!", (10, frame.shape[0] - 25), cv2.FONT_HERSHEY_COMPLEX, 2.5, (255, 255, 255), 2)
+	else: 
+		cv2.putText(frame, "Looking for you ", (60, 45), cv2.FONT_HERSHEY_COMPLEX, 2.0, (255, 255, 255), 2)
 	
 	cv2.imshow('Face Recognition System', frame) 
 
 	if person_found != None: 
-		k = cv2.waitKey(400) & 0xFF
+		k = cv2.waitKey(800) & 0xFF
 		break
 
 	if(cv2.waitKey(1) & 0xFF == ord('q')):

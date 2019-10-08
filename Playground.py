@@ -57,11 +57,15 @@ def runner(user_name):
     master = tk.Tk()
     master.title(user_name)
     size = 50
+
+    separator = tk.Frame(height=10, bd=1, relief=tk.SUNKEN)
+    separator.pack(fill=tk.X, padx=5, pady=5)
+
     e = tk.Entry(master, width = size)
     e.pack()
     e.focus_set()
 
-    b = tk.Button(master, text="Enter", width=10, command= lambda: callback(e))
+    b = tk.Button(master, text="Add Note", width=10, command= lambda: callback(e))
     b.pack()
 
     separator = tk.Frame(height=10, bd=1, relief=tk.SUNKEN)
