@@ -65,7 +65,7 @@ def runner(user_name):
     e.pack()
     e.focus_set()
 
-    b = tk.Button(master, text="Add Note", width=10, command= lambda: callback(e))
+    b = tk.Button(master, text="Add", width=10, command= lambda: callback(e))
     b.pack()
 
     separator = tk.Frame(height=10, bd=1, relief=tk.SUNKEN)
