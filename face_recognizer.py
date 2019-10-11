@@ -10,8 +10,8 @@ import time
 from fr_utils import *
 from inception_blocks_v2 import *
 import os
-import shutil
 from Image_Dataset_Generator import add_image_for_user
+import Playground as notes
 
 FR_model = load_model('nn4.small2.v1.h5')
 
@@ -21,6 +21,7 @@ def main_method():
 	threshold = 0.5
 	face_database = {}
 	return_value = -1
+	pause = False
 
 	for name in os.listdir('images'):
 		for image in os.listdir(os.path.join('images',name)):
@@ -60,7 +61,7 @@ def main_method():
 		cv2.imshow('Face Recognition System', frame) 
 
 		if person_found != None: 
-			k = cv2.waitKey(350) & 0xFF
+			pause = True
 			break
 
 		actual_reading = cv2.waitKey(1) & 0xFF
@@ -71,16 +72,19 @@ def main_method():
 			break
 
 	video_capture.release()
-	cv2.destroyAllWindows()
+	
+	if pause: 
+		k = cv2.waitKey(450) & 0xFF
+
+	cv2.destroyAllWindows() 
+
 	return person_found
 
-def clear_dir(dir_to_clear):
-	dir_to_clear = os.path.join(os.getcwd(), dir_to_clear)
-	''' deletes all files in a directory and it's sub directories '''
-	for item in os.listdir(dir_to_clear): 
-		shutil.rmtree(os.path.join(dir_to_clear, item))
 
 if __name__ == "__main__":
-	while(main_method() == "-1"): 
+	user_name = main_method()
+	while(user_name == "-1"): 
 		add_image_for_user()
-	clear_dir("images")
+		user_name = main_method()
+	notes.runner(user_name)
+	

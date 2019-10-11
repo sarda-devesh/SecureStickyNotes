@@ -1,5 +1,6 @@
 import tkinter as tk
 import os
+import shutil
 
 T = None
 data = []
@@ -23,12 +24,19 @@ def update_past_notes(user_name):
         for line in data: 
             output_file.write(str(line) + "\n")
 
+
+def clear_dir(dir_to_clear):
+	dir_to_clear = os.path.join(os.getcwd(), dir_to_clear)
+	for item in os.listdir(dir_to_clear): 
+		shutil.rmtree(os.path.join(dir_to_clear, item))
+
 def remove_text(second, user_name): 
     try:
         name = str(second.get())
         value = int(name) - 1
         if value < 0: 
             update_past_notes(user_name)
+            #clear_dir("images")
             exit()
         if value >= 0 and value < len(data): 
             data.pop(value)
@@ -65,8 +73,8 @@ def runner(user_name):
     e.pack()
     e.focus_set()
 
-    b = tk.Button(master, text="Add", width=10, command= lambda: callback(e))
-    b.pack()
+    b = tk.Button(master, text="Add Note", width=10, command= lambda: callback(e))
+    b.pack(pady = 10)
 
     separator = tk.Frame(height=10, bd=1, relief=tk.SUNKEN)
     separator.pack(fill=tk.X, padx=5, pady=5)
@@ -83,7 +91,7 @@ def runner(user_name):
     second.focus_set()
     
     remove_button = tk.Button(master, text="Remove", width=10, command= lambda: remove_text(second, user_name))
-    remove_button.pack()
+    remove_button.pack(pady = 10)
 
     separatordoes = tk.Frame(height=10, bd=1, relief=tk.SUNKEN)
     separatordoes.pack(fill=tk.X, padx=5, pady=5)
@@ -100,4 +108,4 @@ def runner(user_name):
     tk.mainloop() 
 
 if __name__ == '__main__': 
-    runner("None")
+    runner("Other")

@@ -78,7 +78,7 @@ def add_image_for_user():
 		bottom_y, top_y = int(height - 50), int(height)
 		bottom_x, top_x = int(0), int((width * number_of_images)/MAX_NUMBER_OF_IMAGES)
 		cv2.rectangle(display, (bottom_x, bottom_y), (top_x, top_y), (255, 255, 255), -1)
-
+		cv2.putText(display, "Please look at the camera ", (30, 45), cv2.FONT_HERSHEY_COMPLEX, 1.25, (255, 255, 255), 2)
 		cv2.imshow('Video', display)
 
 		if(cv2.waitKey(1) & 0xFF == ord('q')):
