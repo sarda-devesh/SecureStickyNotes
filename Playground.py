@@ -1,6 +1,8 @@
 import tkinter as tk
 import os
 import shutil
+import cv2
+import numpy as np 
 
 T = None
 data = []
@@ -107,5 +109,19 @@ def runner(user_name):
 
     tk.mainloop() 
 
+def get_numbers(): 
+    #print(str(chr(32)))
+    frame = np.zeros((500, 500, 3), np.uint8)
+    cv2.imshow("frame", frame)
+    while(True): 
+        k = cv2.waitKey(0)
+        if k == ord('q'):
+            break
+        else:
+            print(k)
+    cv2.destroyAllWindows()
+    
+
 if __name__ == '__main__': 
-    runner("Other")
+    #runner("Other")
+    get_numbers()

@@ -51,9 +51,14 @@ def remove_text(second, user_name):
 		name = str(second.get())
 		value = int(name) - 1
 		if value < 0: 
-			update_past_notes(user_name)
 			if refresh:
 				clear_dir("images")
+				name_of_file = str(user_name) + ".txt"
+				path_to_file = os.path.join(os.getcwd(), name_of_file)
+				if os.path.exists(path_to_file): 
+					os.remove(path_to_file)
+			else:
+				update_past_notes(user_name)
 			exit()
 		if value >= 0 and value < len(data): 
 			data.pop(value)
@@ -168,7 +173,7 @@ def add_image_for_user():
 		os.makedirs(directory, exist_ok = 'True')
 
 	number_of_images = 0
-	MAX_NUMBER_OF_IMAGES = 25
+	MAX_NUMBER_OF_IMAGES = 10
 	count = 0
 
 	while number_of_images < MAX_NUMBER_OF_IMAGES:
@@ -278,4 +283,5 @@ if __name__ == "__main__":
 		add_image_for_user()
 		user_name = main_method()
 	runner(user_name)
+
 	
